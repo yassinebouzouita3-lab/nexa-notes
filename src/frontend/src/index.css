@@ -1,0 +1,302 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("/assets/fonts/SpaceGrotesk.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("/assets/fonts/PlusJakartaSans.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist Mono";
+  src: url("/assets/fonts/GeistMono.woff2") format("woff2");
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --font-display: "Space Grotesk";
+    --font-body: "Plus Jakarta Sans";
+    --font-mono: "Geist Mono";
+
+    /* Shape language — Material 3 style rounding */
+    --radius: 0.875rem;
+    --radius-card: 1.25rem;
+    --radius-sheet: 1.75rem;
+    --radius-pill: 9999px;
+
+    /* Motion */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-spring: all 0.42s cubic-bezier(0.34, 1.4, 0.5, 1);
+    --transition-fast: all 0.16s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Atmosphere */
+    --gradient-primary: linear-gradient(
+      135deg,
+      oklch(0.48 0.1 192) 0%,
+      oklch(0.38 0.075 196) 100%
+    );
+    --gradient-subtle: linear-gradient(
+      180deg,
+      oklch(0.985 0.004 190) 0%,
+      oklch(0.955 0.008 190) 100%
+    );
+
+    /* Light — "Paper & Ink" */
+    --background: 0.975 0.005 190;
+    --foreground: 0.22 0.02 200;
+    --card: 1 0 0;
+    --card-foreground: 0.22 0.02 200;
+    --popover: 1 0 0;
+    --popover-foreground: 0.22 0.02 200;
+
+    --primary: 0.47 0.098 192;
+    --primary-foreground: 0.985 0.004 192;
+
+    --secondary: 0.945 0.012 190;
+    --secondary-foreground: 0.3 0.022 200;
+    --muted: 0.945 0.012 190;
+    --muted-foreground: 0.52 0.018 200;
+
+    --accent: 0.66 0.13 74;
+    --accent-foreground: 0.22 0.04 74;
+
+    --destructive: 0.55 0.2 27;
+    --destructive-foreground: 0.985 0.004 27;
+    --success: 0.6 0.13 150;
+    --success-foreground: 0.985 0.004 150;
+    --warning: 0.72 0.14 78;
+    --warning-foreground: 0.24 0.04 78;
+
+    --border: 0.9 0.008 190;
+    --input: 0.9 0.008 190;
+    --ring: 0.47 0.098 192;
+
+    /* Notes-specific */
+    --fab: 0.47 0.098 192;
+    --fab-foreground: 0.985 0.004 192;
+    --fab-shadow: 0 10px 24px -6px oklch(0.47 0.098 192 / 0.5);
+    --note-card: 1 0 0;
+    --note-card-hover: 0.995 0.003 190;
+    --note-card-border: 0.915 0.006 190;
+    --note-pinned-accent: 0.66 0.13 74;
+    --tag-bg: 0.94 0.022 192;
+    --tag-foreground: 0.38 0.07 192;
+    --empty-illustration: 0.93 0.014 190;
+
+    --chart-1: 0.47 0.098 192;
+    --chart-2: 0.66 0.13 74;
+    --chart-3: 0.6 0.13 150;
+    --chart-4: 0.55 0.1 260;
+    --chart-5: 0.62 0.12 25;
+
+    --sidebar: 0.955 0.008 190;
+    --sidebar-foreground: 0.22 0.02 200;
+    --sidebar-primary: 0.47 0.098 192;
+    --sidebar-primary-foreground: 0.985 0.004 192;
+    --sidebar-accent: 0.94 0.022 192;
+    --sidebar-accent-foreground: 0.32 0.05 192;
+    --sidebar-border: 0.9 0.008 190;
+    --sidebar-ring: 0.47 0.098 192;
+  }
+
+  .dark {
+    /* Dark — "Deep Teal Charcoal" */
+    --background: 0.155 0.012 200;
+    --foreground: 0.93 0.006 190;
+    --card: 0.205 0.014 200;
+    --card-foreground: 0.93 0.006 190;
+    --popover: 0.235 0.015 200;
+    --popover-foreground: 0.93 0.006 190;
+
+    --primary: 0.76 0.098 186;
+    --primary-foreground: 0.155 0.012 200;
+
+    --secondary: 0.245 0.016 200;
+    --secondary-foreground: 0.86 0.006 190;
+    --muted: 0.245 0.016 200;
+    --muted-foreground: 0.63 0.012 195;
+
+    --accent: 0.75 0.11 76;
+    --accent-foreground: 0.17 0.03 76;
+
+    --destructive: 0.63 0.18 25;
+    --destructive-foreground: 0.155 0.012 25;
+    --success: 0.68 0.13 152;
+    --success-foreground: 0.155 0.012 152;
+    --warning: 0.78 0.13 80;
+    --warning-foreground: 0.17 0.03 80;
+
+    --border: 0.29 0.014 200;
+    --input: 0.29 0.014 200;
+    --ring: 0.76 0.098 186;
+
+    --fab: 0.76 0.098 186;
+    --fab-foreground: 0.155 0.012 200;
+    --fab-shadow: 0 10px 26px -6px oklch(0.76 0.098 186 / 0.42);
+    --note-card: 0.205 0.014 200;
+    --note-card-hover: 0.235 0.016 200;
+    --note-card-border: 0.285 0.014 200;
+    --note-pinned-accent: 0.75 0.11 76;
+    --tag-bg: 0.27 0.035 192;
+    --tag-foreground: 0.84 0.07 188;
+    --empty-illustration: 0.245 0.016 200;
+
+    --chart-1: 0.76 0.098 186;
+    --chart-2: 0.75 0.11 76;
+    --chart-3: 0.68 0.13 152;
+    --chart-4: 0.66 0.1 262;
+    --chart-5: 0.66 0.13 25;
+
+    --sidebar: 0.19 0.013 200;
+    --sidebar-foreground: 0.93 0.006 190;
+    --sidebar-primary: 0.76 0.098 186;
+    --sidebar-primary-foreground: 0.155 0.012 200;
+    --sidebar-accent: 0.27 0.035 192;
+    --sidebar-accent-foreground: 0.84 0.07 188;
+    --sidebar-border: 0.29 0.014 200;
+    --sidebar-ring: 0.76 0.098 186;
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display;
+    letter-spacing: -0.02em;
+  }
+  ::selection {
+    background: oklch(var(--primary) / 0.22);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer utilities {
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+  .transition-spring {
+    transition: var(--transition-spring);
+  }
+  .transition-fast {
+    transition: var(--transition-fast);
+  }
+
+  /* Surfaces */
+  .surface-card {
+    background-color: oklch(var(--note-card));
+    border: 1px solid oklch(var(--note-card-border));
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-note);
+    transition: var(--transition-smooth);
+  }
+  .surface-card:hover {
+    background-color: oklch(var(--note-card-hover));
+    box-shadow: var(--shadow-note-hover);
+    transform: translateY(-2px);
+  }
+  .surface-sheet {
+    background-color: oklch(var(--card));
+    border-top-left-radius: var(--radius-sheet);
+    border-top-right-radius: var(--radius-sheet);
+  }
+
+  /* Floating action button */
+  .fab {
+    background-image: var(--gradient-primary);
+    color: oklch(var(--fab-foreground));
+    border-radius: var(--radius-pill);
+    box-shadow: var(--fab-shadow);
+    transition: var(--transition-spring);
+  }
+  .fab:hover {
+    transform: translateY(-3px) scale(1.04);
+  }
+  .fab:active {
+    transform: translateY(0) scale(0.96);
+  }
+  .fab:focus-visible {
+    outline: 2px solid oklch(var(--ring));
+    outline-offset: 3px;
+  }
+
+  /* Tags */
+  .tag-pill {
+    background-color: oklch(var(--tag-bg));
+    color: oklch(var(--tag-foreground));
+    border-radius: var(--radius-pill);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .pinned-rail {
+    background-color: oklch(var(--note-pinned-accent));
+    border-radius: var(--radius-pill);
+  }
+
+  /* Layouts */
+  .notes-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.875rem;
+  }
+  @media (min-width: 768px) {
+    .notes-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.125rem;
+    }
+  }
+  @media (min-width: 1280px) {
+    .notes-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+  .notes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+
+  /* Empty state */
+  .empty-illustration {
+    background-color: oklch(var(--empty-illustration));
+    border-radius: var(--radius-pill);
+  }
+
+  .stagger-item {
+    animation: fade-up 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  /* Hide scrollbars on horizontal rails while keeping them scrollable */
+  .scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+}

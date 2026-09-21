@@ -1,0 +1,150 @@
+// Version: 4.0.0
+type AccessControlState__201339279 =
+  {
+    var adminAssigned : Bool;
+    userRoles : Map__230067015<Principal, UserRole__91647283>
+  };
+type ChecklistItem__183635310 =
+  {completed : Bool; id : Id__1073409734; text : Text};
+type ChecklistItem__557038186 =
+  {completed : Bool; id : Id__108373731; text : Text};
+type Data__44217153<K, V> = {var count : Nat__227979830; kvs : [var ?(K, V)]};
+type Folder__728416231 =
+  {createdAt : Timestamp__836802844; id : Id__1073409734; name : Text};
+type Folder__961989525 =
+  {createdAt : Timestamp__354304526; id : Id__108373731; name : Text};
+type Id__1073409734 = Nat;
+type Id__108373731 = Id__389469852;
+type Id__389469852 = Nat;
+type Id__525626968 = Id__389469852;
+type Internal__283199666<K, V> =
+  {children : [var ?Node__204828119<K, V>]; data : Data__44217153<K, V>};
+type Leaf__598469445<K, V> = {data : Data__44217153<K, V>};
+type Map__230067015<K, V> = Map__405889023<K, V>;
+type Map__405889023<K, V> = Map__603270868<K, V>;
+type Map__603270868<K, V> =
+  {var root : Node__204828119<K, V>; var size : Nat__227979830};
+type Nat__227979830 = Nat__920180692;
+type Nat__920180692 = Nat;
+type NewActor__426998186 =
+  {
+    accessControlState : AccessControlState__201339279;
+    counters :
+      {
+        var nextFolderId : Id__1073409734;
+        var nextItemId : Id__1073409734;
+        var nextNoteId : Id__1073409734;
+        var nextTagId : Id__1073409734
+      };
+    folders :
+      Map__230067015<Principal,
+                      Map__230067015<Id__1073409734, Folder__728416231>>;
+    notes :
+      Map__230067015<Principal,
+                      Map__230067015<Id__1073409734, Note__523477869>>;
+    seeded : Map__230067015<Principal, Bool>;
+    settings : Map__230067015<Principal, Settings__842574280>;
+    tags :
+      Map__230067015<Principal,
+                      Map__230067015<Id__1073409734, Tag__599880249>>
+  };
+type Node__204828119<K, V> =
+  {#internal : Internal__283199666<K, V>; #leaf : Leaf__598469445<K, V>};
+type Note__1063160515 =
+  {
+    body : RichText__831023559;
+    checklist : [ChecklistItem__557038186];
+    createdAt : Timestamp__354304526;
+    favorite : Bool;
+    folderId : ?Id__108373731;
+    id : Id__108373731;
+    pinned : Bool;
+    tagIds : [Id__108373731];
+    title : Text;
+    trashed : Bool;
+    updatedAt : Timestamp__354304526
+  };
+type Note__523477869 =
+  {
+    body : Text;
+    checklist : [ChecklistItem__183635310];
+    createdAt : Timestamp__836802844;
+    favorite : Bool;
+    folderId : ?Id__1073409734;
+    id : Id__1073409734;
+    pinned : Bool;
+    tagIds : [Id__1073409734];
+    title : Text;
+    trashed : Bool;
+    updatedAt : Timestamp__836802844
+  };
+type OldActor__241283283 = {};
+type RichText__831023559 = Text;
+type Settings__52878082 =
+  {
+    gridView : Bool;
+    sortOrder : SortOrder__173077378;
+    theme : Theme__523825769
+  };
+type Settings__842574280 =
+  {
+    gridView : Bool;
+    sortOrder : {#favorites; #newest; #oldest; #title};
+    theme : {#automatic; #dark; #light}
+  };
+type SortOrder__173077378 = SortOrder__575798288;
+type SortOrder__575798288 = {#favorites; #newest; #oldest; #title};
+type Tag__51517467 =
+  {createdAt : Timestamp__354304526; id : Id__108373731; name : Text};
+type Tag__599880249 =
+  {createdAt : Timestamp__836802844; id : Id__1073409734; name : Text};
+type Theme__523825769 = {#automatic; #dark; #light};
+type Timestamp__301639476 = Int;
+type Timestamp__354304526 = Timestamp__301639476;
+type Timestamp__836802844 = Int;
+type UserRole__91647283 = {#admin; #guest; #user};
+{
+  "20260921_000000" : (old : OldActor__241283283) -> NewActor__426998186
+}
+actor  {
+  stable accessControlState :
+    {
+      var adminAssigned : Bool;
+      userRoles : Map__230067015<Principal, UserRole__91647283>
+    };
+  stable counters :
+    {
+      var nextFolderId : Id__525626968;
+      var nextItemId : Id__525626968;
+      var nextNoteId : Id__525626968;
+      var nextTagId : Id__525626968
+    };
+  stable folders :
+    {
+      var root :
+        Node__204828119<Principal,
+                         Map__230067015<Id__525626968, Folder__961989525>>;
+      var size : Nat__227979830
+    };
+  stable notes :
+    {
+      var root :
+        Node__204828119<Principal,
+                         Map__230067015<Id__525626968, Note__1063160515>>;
+      var size : Nat__227979830
+    };
+  stable seeded :
+    {var root : Node__204828119<Principal, Bool>; var size : Nat__227979830};
+  stable settings :
+    {
+      var root : Node__204828119<Principal, Settings__52878082>;
+      var size : Nat__227979830
+    };
+  stable tags :
+    {
+      var root :
+        Node__204828119<Principal,
+                         Map__230067015<Id__525626968, Tag__51517467>>;
+      var size : Nat__227979830
+    }
+};

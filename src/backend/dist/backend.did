@@ -1,0 +1,186 @@
+type Value = 
+ variant {
+   "bool": bool;
+   float: float64;
+   "int": int;
+   "nat": nat;
+   "null";
+   "text": text;
+ };
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type Timestamp = int;
+type Theme = 
+ variant {
+   automatic;
+   dark;
+   light;
+ };
+type Tag = 
+ record {
+   createdAt: Timestamp;
+   id: Id;
+   name: text;
+ };
+type SortOrder = 
+ variant {
+   favorites;
+   newest;
+   oldest;
+   title;
+ };
+type Settings = 
+ record {
+   gridView: bool;
+   sortOrder: SortOrder;
+   theme: Theme;
+ };
+type RichText = text;
+type Result__1 = 
+ variant {
+   err: Error;
+   ok;
+ };
+type Result = 
+ record {
+   hasMore: bool;
+   rows: vec vec Cell;
+ };
+type NotePatch = 
+ record {
+   body: opt RichText;
+   checklist: opt vec ChecklistItem;
+   clearBody: opt bool;
+   clearFolder: opt bool;
+   clearTitle: opt bool;
+   folderId: opt Id;
+   tagIds: opt vec Id;
+   title: opt text;
+ };
+type NoteInput = 
+ record {
+   body: RichText;
+   checklist: vec ChecklistItem;
+   folderId: opt Id;
+   tagIds: vec Id;
+   title: text;
+ };
+type NoteFilter = 
+ record {
+   favoritesOnly: bool;
+   folderId: opt Id;
+   includeTrashed: bool;
+   tagId: opt Id;
+ };
+type Note = 
+ record {
+   body: RichText;
+   checklist: vec ChecklistItem;
+   createdAt: Timestamp;
+   favorite: bool;
+   folderId: opt Id;
+   id: Id;
+   pinned: bool;
+   tagIds: vec Id;
+   title: text;
+   trashed: bool;
+   updatedAt: Timestamp;
+ };
+type Id = nat;
+type Folder = 
+ record {
+   createdAt: Timestamp;
+   id: Id;
+   name: text;
+ };
+type Error = 
+ variant {
+   AmbiguousAttribute: record {
+                         field: text;
+                         sources: vec text;
+                       };
+   FrontendOriginMismatch: record {
+                             expected: vec text;
+                             got: text;
+                           };
+   FrontendOriginsNotConfigured;
+   MalformedCandid;
+   MissingField: text;
+   MixedSsoSources: record {
+                      otherKeys: vec text;
+                      ssoKeys: vec text;
+                    };
+   NoAttributes;
+   Stale: record {ageNs: nat;};
+   UnknownNonce;
+   UntrustedSsoSource: record {domain: text;};
+ };
+type ChecklistItem = 
+ record {
+   completed: bool;
+   id: Id;
+   "text": text;
+ };
+type Cell = 
+ record {
+   name: text;
+   value: Value;
+ };
+service : {
+  _initialize_access_control: () -> ();
+  _internet_identity_sign_in_finish: () -> (Result__1);
+  _internet_identity_sign_in_start: () -> (blob);
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  /// Create a folder.
+  createFolder: (name: text) -> (Folder);
+  /// Create a new note for the caller.
+  createNote: (input: NoteInput) -> (Note);
+  /// Create a tag.
+  createTag: (name: text) -> (Tag);
+  /// Delete a folder.
+  deleteFolder: (id: Id) -> (bool);
+  /// Permanently delete a note.
+  deleteNotePermanently: (id: Id) -> (bool);
+  /// Delete a tag.
+  deleteTag: (id: Id) -> (bool);
+  /// Duplicate a note into an independent copy.
+  duplicateNote: (id: Id) -> (opt Note);
+  execute: (qJson: text) -> (Result) query;
+  /// Return the backend's API documentation as Markdown.
+  getApiDoc: () -> (text) query;
+  getCallerUserRole: () -> (UserRole) query;
+  /// Read the caller's settings.
+  getSettings: () -> (Settings) query;
+  isCallerAdmin: () -> (bool) query;
+  /// List the caller's folders.
+  listFolders: () -> (vec Folder) query;
+  /// List the caller's notes with sort and filters.
+  listNotes: (sort: SortOrder, filter: NoteFilter) -> (vec Note) query;
+  /// List the caller's tags.
+  listTags: () -> (vec Tag) query;
+  /// Rename a folder.
+  renameFolder: (id: Id, name: text) -> (opt Folder);
+  /// Restore a note from trash.
+  restoreNote: (id: Id) -> (opt Note);
+  schema: () -> (text) query;
+  /// Search the caller's notes across title, body and tags.
+  searchNotes: (term: text) -> (vec Note) query;
+  /// Seed sample notes for the caller on first launch.
+  seedSampleNotes: () -> (vec Note);
+  /// Mark or unmark a note as favorite.
+  setFavorite: (id: Id, favorite: bool) -> (opt Note);
+  /// Pin or unpin a note.
+  setPinned: (id: Id, pinned: bool) -> (opt Note);
+  /// Toggle a checklist item inside a note.
+  toggleChecklistItem: (noteId: Id, itemId: Id) -> (opt Note);
+  /// Move a note to trash.
+  trashNote: (id: Id) -> (bool);
+  /// Apply a partial update (autosave) to a note.
+  updateNote: (id: Id, patch: NotePatch) -> (opt Note);
+  /// Persist the caller's settings.
+  updateSettings: (settings: Settings) -> (Settings);
+}

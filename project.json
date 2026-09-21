@@ -1,0 +1,26 @@
+{
+  "overview": "A premium, modern note-taking app with rich text editing, folders, tags, checklists, search, trash recovery and dark/light themes.",
+  "features": [
+    "Create, edit, duplicate and delete notes",
+    "Rich text editing with bold, italic, underline, headings and lists",
+    "Pin and favorite important notes",
+    "Organize notes into folders and tags",
+    "Instant global search",
+    "Sort by newest, oldest, title or favorites",
+    "Autosave on every change",
+    "Trash with restore and permanent delete",
+    "Checklists and task items",
+    "Dark, light and automatic system themes",
+    "Grid and list home layouts",
+    "Sample notes on first launch"
+  ],
+  "category": "note-taking-app",
+  "tags": [
+    "notes",
+    "productivity",
+    "rich-text",
+    "organization",
+    "mobile"
+  ],
+  "last_updated": "2026-09-21T18:26:46.970Z"
+}
